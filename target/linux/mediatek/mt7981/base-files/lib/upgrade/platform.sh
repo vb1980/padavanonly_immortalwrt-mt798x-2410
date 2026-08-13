@@ -212,6 +212,7 @@ platform_do_upgrade() {
 	cmcc,a10 |\
 	cmcc,rax3000m |\
 	h3c,nx30pro |\
+	*star-net,sr503* |\
 	*konka,komi-a31* |\
 	*nokia,ea0326gmp* |\
 	*snand*)
@@ -274,6 +275,7 @@ platform_check_image() {
 	cmcc,a10 |\
 	cmcc,rax3000m* |\
 	h3c,nx30pro |\
+	*star-net,sr503* |\
 	*konka,komi-a31* |\
 	nradio,wt9103 |\
 	*nokia,ea0326gmp* |\
