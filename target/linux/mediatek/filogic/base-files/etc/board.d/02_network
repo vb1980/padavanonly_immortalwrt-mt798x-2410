@@ -63,6 +63,7 @@ mediatek_setup_interfaces()
 	tplink,wma301*|\
 	*philips,hy3000*|\
 	sl,3000-emmc|\
+	star-net,sr503|\
 	bt,r320|\
 	routerich,ax3000|\
 	routerich,ax3000-ubootmod)
@@ -264,12 +265,17 @@ mediatek_setup_macs()
  		wan_mac=$(macaddr_add "$lan_mac" -2)
  		label_mac=$lan_mac
  		;;
+	star-net,sr503)
+		label_mac=$(mtd_get_mac_binary "Factory" 0x4)
+		wan_mac=$label_mac
+		lan_mac=$(mtd_get_mac_binary "Factory" 0xa)
+		;;
 	philips,hy3000)
 		lan_mac=$(mmc_get_mac_binary factory 0x74)
 		wan_mac=$(macaddr factory $lan_mac 1)
 		label_mac=$wan_mac
 		;;
-    sn,r1)
+    	sn,r1)
 		lan_mac=$(mmc_get_mac_binary factory 0x2a)
 		wan_mac=$(mmc_get_mac_binary factory 0x24)
 		label_mac=$wan_mac

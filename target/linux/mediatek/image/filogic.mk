@@ -2165,6 +2165,27 @@ define Device/bt_rb300
 endef
 TARGET_DEVICES += bt_rb300
 
+define Device/star-net_sr503
+  DEVICE_VENDOR := STAR-NET
+  DEVICE_MODEL := SR503
+  DEVICE_DTS := mt7981b-star-net-sr503
+  DEVICE_DTS_DIR := ../dts
+  DEVICE_PACKAGES := kmod-mt7915e kmod-mt7981-firmware mt7981-wo-firmware
+  UBINIZE_OPTS := -E 5
+  BLOCKSIZE := 128k
+  PAGESIZE := 2048
+  IMAGE_SIZE := 240000k
+  KERNEL_IN_UBI := 1
+  IMAGES += factory.bin
+  IMAGE/factory.bin := append-ubi | check-size $$$$(IMAGE_SIZE)
+  IMAGE/sysupgrade.bin := sysupgrade-tar | append-metadata
+  KERNEL = kernel-bin | lzma | \
+	fit lzma $$(KDIR)/image-$$(firstword $$(DEVICE_DTS)).dtb
+  KERNEL_INITRAMFS = kernel-bin | lzma | \
+	fit lzma $$(KDIR)/image-$$(firstword $$(DEVICE_DTS)).dtb with-initrd
+endef
+TARGET_DEVICES += star-net_sr503
+
 define Device/superelectron_zn-m5-stock
   DEVICE_VENDOR := SuperElectron
   DEVICE_MODEL := ZN-M5
